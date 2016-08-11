@@ -1,46 +1,27 @@
-# react-webpack-babel
-Simple React Webpack Babel Starter Kit
-
-
-This is a simple [React](https://facebook.github.io/react/), [Webpack](http://webpack.github.io/) and [Babel](https://babeljs.io/) application with nothing else in it.
-
-### What's in it?
-
-Just a simple [index.jsx](./index.jsx), [webpack.config.js](./webpack.config.js) and [index.html](./public/index.html) file.
+# React/Celery Queue
+A simple React/Redux/Immutable application for submitting tasks Celery. Updates are passed back via a Klein server.
+This was developed as a demonstration at [OICR](http://oicr.on.ca/) for the Software Engineering Club to showcase the task queueing system implemented by [PGMLab](https://github.com/OICR/PGMLab), a machine learning tool to perform loopy belief propagation over probablistic graphical models (intended for use with [Reactome pathways](http://www.reactome.org/) for drug discovery).
 
 ### To run
 
-* You'll need to have [git](https://git-scm.com/) and [node](https://nodejs.org/en/) installed in your system.
-* Fork and clone the project:
+* You'll need to both npm install and pip install. The requirements.txt file is taken from PGMLab and so has extraneous
+packages.
 
-```
-> $ git clone https://github.com/alicoding/react-webpack-babel.git
-```
 
-Then install the dependencies:
-
+Install dependencies:
 ```
 > $ npm install
+> $ pip install -r requirements.txt
 ```
 
-Install webpack and the development server:
-
+Run Klein server
 ```
-> $ npm i webpack-dev-server webpack -g
-```
-
-You can simply run webpack build using this command: 
-
-```
-> $ npm run build
+> $ python server.py
 ```
 
-If you want to run with webpack-dev-server simply run this command: 
-
+Run React demo
 ```
 > $ npm run dev
 ```
 
 Open the web browser to `http://localhost:8888/`
-
-Please contribute to the project if you think this can be done better in anyway even for this README :)
