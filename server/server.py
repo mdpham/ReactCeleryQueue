@@ -3,6 +3,7 @@ from tasks import demo_task, task_queue
 import json
 import datetime
 
+# Route for submitting task start
 @route("/submit", methods=["POST"])
 def submit(request):
     print request.args
@@ -13,6 +14,7 @@ def submit(request):
         "datetime": str(datetime.datetime.now())
     })
 
+# Route for SSE, hook into this clientside via EventStream
 from twisted.internet import defer
 spectators = set()
 @route("/tasks")
@@ -21,8 +23,9 @@ def stream(request):
     global spectators
     spectators = set([spec for spec in spectators if not spec.transport.disconnected]+[request])
     print("streams: {}".format(len(spectators)))
+    # Never actually returned, this is why Klein is useful
     return defer.Deferred()
-
+# Send an SSE
 def update_sse(event):
     global spectators
     update = json.dumps({
@@ -34,13 +37,16 @@ def update_sse(event):
         if not spec.transport.disconnected:
             spec.write("event: update\ndata: {}\n\n".format(update))
 
+# Thread monitoring celery tasks
 from threading import Thread
 from time import sleep
 def monitor():
     print('starting monitor')
+    # Event handler
     def catch_all(event):
         if event["type"] in ["task-received", "task-started", "task-succeeded"]:
             update_sse(event)
+    # Listen forever and ever
     while True:
         try:
             with task_queue.connection() as connection:

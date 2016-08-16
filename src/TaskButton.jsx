@@ -13,12 +13,13 @@ export default class TaskButton extends React.Component {
           url: "http://localhost:8080/submit",
           contentType: false,
           processData: false,
+          // object keywords/variables
           data,
           success: (payload, status, xhr) => {
-            // console.log("success: ", status, xhr, payload);
+            console.log("success: ", status, xhr, payload);
           },
           error: (xhr, status, error) => {
-            // console.log("error", error, status, xhr);
+            console.log("error", error, status, xhr);
           }
         });
       }
